@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 0.15.0
+description: Cert Manager Cluster Issuers for LetsEncrypt
+name: cluster-issuers
+type: application
+version: 0.15.0
