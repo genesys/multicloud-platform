@@ -3,9 +3,9 @@
 This module supports creating:
 
 All third party software that we want to install on the k8s cluster:
-- Kafka
-- Keda
-- Consul
+- Kafka - v1.0
+- Keda  -  v2.6.1
+- Consul - v1.9.15
 
 ## Usage
 
@@ -82,6 +82,8 @@ Below inputs are required in the data and provider blocks and not in the module 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | name | The name of the cluster  | `string` | n/a | yes |
+| consul_helm_version | Consul version to be installed  | `string` | "v0.34.1"| no |
+| tls | Enable tls in consul  | `string` | false | no |
 | location | The region of the cluster  | `string` | n/a | yes |
 | project | The name of the project  | `string` | n/a | yes |
 | bucket | Name of the bucket created in module 0 | `string` | n/a | yes |

@@ -6,11 +6,11 @@ variable tls {
 }
 
 variable connectInject {
-  default = false
+  default = true
 }
 
 variable controller {
-  default = false
+  default = true
 }
 
 variable openshift {
@@ -18,13 +18,22 @@ variable openshift {
 }
 
 variable syncCatalog {
-  default = false
+  default = true
 }
 
 variable ui {
-  default = false
+  default = true
 }
 
 variable client {
-  default = false
+  default = true
+}
+
+variable manageSystemACLs {
+  default = true
+}
+
+variable consul_helm_version {
+  type = string
+  default = "v0.34.1"
 }
