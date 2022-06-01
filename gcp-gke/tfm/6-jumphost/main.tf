@@ -86,11 +86,11 @@ resource "google_project_iam_custom_role" "IAP_tunnel_users" {
 }
 
 resource "google_project_iam_binding" "project" {
-  project = var.project
-  role    = google_project_iam_custom_role.IAP_tunnel_users.id 
-  members = var.members
-
-  depends_on = [
+  count       = var.create_iap_iam_role == true ? 1 : 0
+  project     = var.project
+  role        = "projects/${var.project}/roles/IAPusers"
+  members     = var.members
+  depends_on  = [
     google_project_iam_custom_role.IAP_tunnel_users
   ]
 }
