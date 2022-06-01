@@ -106,6 +106,17 @@ resource "helm_release" "consul" {
     name  = "client.enabled"
     value = var.client
   }
+
+  set {
+    name  = "global.image"
+    value = var.consul_image
+  }
+
+  set {
+    name  = "global.imageK8S"
+    value = var.consul_imageK8S
+  }
+
   depends_on = [
     kubernetes_namespace.consul,
   ]
