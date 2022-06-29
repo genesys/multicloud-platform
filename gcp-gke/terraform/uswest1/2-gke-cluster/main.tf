@@ -5,8 +5,8 @@ module "gke" {
     network_name            = "network01"
     region                  = "us-west1"
     cluster                 = "cluster02"
-    gke_version             = "1.21.6-gke.1503" #Minumum version supported: 1.21.*
-    release_channel         = "REGULAR" 
+    gke_version             = "1.22.10-gke.600"  #Minumum version supported: 1.21.*
+    release_channel         = "UNSPECIFIED"
     secondary_pod_range     = "10.198.64.0/18"
     secondary_service_range = "10.198.16.0/20"
     gke_num_nodes           = "2"

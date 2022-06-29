@@ -8,6 +8,8 @@ This module supports creating:
 
 We have tested this cluster with gke version 1.21.9-gke.1002 which was in Regular release channel at the time, for the updated release channels and versions please check the official [Release Notes](https://cloud.google.com/kubernetes-engine/docs/release-notes). We are only supporting  Basic usage of this module is as follows:
 
+Note: set the `release_channel` variable to UNSPECIFIED to prevent cluster auto upgrade.
+
 
 ```hcl
 module "gke" {
@@ -17,8 +19,8 @@ module "gke" {
     network_name            = "<network> eg.gcpe003"
     region                  = "<cluster region> eg.us-west1"
     cluster                 = "<cluster name> eg.gke1"
-    gke_version             = "<version of the cluster>" #Minumum version supported: 1.21
-    release_channel         = "<release channel> eg.RAPID/REGULAR/STABLE" #must be all caps
+    gke_version             = "<version of the cluster>" #Minumum version supported: 1.22
+    release_channel         = "<release channel> eg.RAPID/REGULAR/STABLE/UNSPECIFIED" #must be all caps
     secondary_pod_range     = "<CIDR block for pods> eg.10.198.64.0/18"
     secondary_service_range = "<CIDR block for services> 10.198.16.0/20"
     gke_num_nodes           = "2"

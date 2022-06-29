@@ -2,6 +2,9 @@
 
 module "third-party" {
     source  = "../../../tfm/5-third-party/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/5-third-party?ref=master
+    consul_helm_version = "0.41.0"
+    consul_image        = "hashicorp/consul:1.11.3"
+    consul_imageK8S     = "hashicorp/consul-k8s-control-plane:0.41.0"
 }
 
 

@@ -75,6 +75,10 @@ terraform {
 }
 ```
 
+
+
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
@@ -86,12 +90,25 @@ Below inputs are required in the data and provider blocks and not in the module 
 | consul_helm_version | Consul version to be installed  | `string` | "v0.34.1"| no |
 | consul_image | Consul image to be used in helm  | `string` | "hashicorp/consul:1.9.15"| no |
 | consul_imageK8s | Consul K8Simage  to be installed  | `string` | "hashicorp/consul-k8s-control-plane:0.34.1"| no |
-| tls | Enable tls in consul  | `string` | false | no |
+| tls | Enable tls in consul  | `string` | true | no |
 | location | The region of the cluster  | `string` | n/a | yes |
 | project | The name of the project  | `string` | n/a | yes |
 | bucket | Name of the bucket created in module 0 | `string` | n/a | yes |
 | prefix | Name of folder to be created within bucket | `string` | n/a | yes |
 
 
+
+## Consul Compatability Matrix and Variable Values
+| GKE Verson | Consul Version |
+|------------|----------------|
+| v1.21 | v1.9.15 |
+| v1.22 | v1.11.3 |
+
+| Consul Variables | v1.9.15 Values | v1.11.3 Values |
+|------------------|----------------|----------------|
+| consul_helm_version | "v0.34.1" | "0.41.0" |
+| consul_image | "hashicorp/consul:1.9.15" | "hashicorp/consul:1.11.3" |
+| consul_imageK8s | "hashicorp/consul-k8s-control-plane:0.34.1" | "hashicorp/consul-k8s-control-plane:0.41.0" |
+| tls | true | true |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

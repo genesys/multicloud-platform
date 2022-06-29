@@ -13,8 +13,8 @@ global:
     enabled: true
 
 server:
-  replicas: 1
-  bootstrapExpect: 1
+  replicas: 3
+  bootstrapExpect: 3
   disruptionBudget:
     enabled: true
     maxUnavailable: 0
@@ -28,9 +28,12 @@ ui:
 
 connectInject:
   enabled: true
+  transparentProxy:
+    defaultEnabled: false
 
 controller:
   enabled: true
   
 syncCatalog:
   enabled: true
+  addK8SNamespaceSuffix: false

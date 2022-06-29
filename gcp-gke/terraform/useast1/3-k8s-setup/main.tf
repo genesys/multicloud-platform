@@ -1,5 +1,5 @@
 module "k8s-setup" {
-    source        = "../../../tfm/3-k8s-setup/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/3-k8s-setup?ref=master"
+    source        = "../../../tfm/3-k8s-setup/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/3-k8s-setup?ref=master
     project_id   = "project01"
     network_name = "network01"
     ipv4         = "10.200.12.0/22"
