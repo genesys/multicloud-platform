@@ -1,8 +1,8 @@
 global:
   name: consul
   datacenter: dc1
-  #image: registry.connect.redhat.com/hashicorp/consul:1.9.10-ubi 
-  #imageK8S: registry.connect.redhat.com/hashicorp/consul-k8s-control-plane:0.34.0-ubi
+  image: hashicorp/consul:1.9.15
+  imageK8S: hashicorp/consul-k8s-control-plane:0.34.1
   tls:
     enabled: true
     enableAutoEncrypt: true
@@ -13,8 +13,8 @@ global:
     enabled: true
 
 server:
-  replicas: 1
-  bootstrapExpect: 1
+  replicas: 3
+  bootstrapExpect: 3
   disruptionBudget:
     enabled: true
     maxUnavailable: 0
@@ -28,9 +28,12 @@ ui:
 
 connectInject:
   enabled: true
+  transparentProxy:
+    defaultEnabled: false
 
 controller:
   enabled: true
   
 syncCatalog:
   enabled: true
+  addK8SNamespaceSuffix: false
