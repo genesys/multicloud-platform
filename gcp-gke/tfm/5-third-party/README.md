@@ -3,9 +3,10 @@
 This module supports creating:
 
 All third party software that we want to install on the k8s cluster:
+
 - Kafka - v1.0
 - Keda  -  v2.6.1
-- Consul - v1.9.15 / v1.11.3
+- Consul (GKE 1.21 - Consul 1.9.x (currently 1.9.15), GKE 1.22 - Consul 1.11.x (currently 1.11.3))
 
 ## Usage
 

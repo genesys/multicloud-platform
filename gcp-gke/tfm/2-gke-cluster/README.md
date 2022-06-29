@@ -6,7 +6,7 @@ This module supports creating:
 
 ## Usage
 
-We have tested this cluster with gke version 1.22.3-gke.700 which was in Rapid release channel at the time, for the updated release channels and versions please check the official [Release Notes](https://cloud.google.com/kubernetes-engine/docs/release-notes). We are only supporting  Basic usage of this module is as follows:
+We have tested this cluster with gke version 1.21.9-gke.1002 which was in Regular release channel at the time, for the updated release channels and versions please check the official [Release Notes](https://cloud.google.com/kubernetes-engine/docs/release-notes). We are only supporting  Basic usage of this module is as follows:
 
 Note: set the `release_channel` variable to UNSPECIFIED to prevent cluster auto upgrade.
 
