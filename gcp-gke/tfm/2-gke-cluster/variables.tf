@@ -1,22 +1,17 @@
 variable "project_id" {
   type = string
-  description = "project id"
-}
-
-variable "environment" {
-  type = string
-  description = "environment"
+  description = "Project ID"
 }
 
 variable "region" {
   type = string
-  description = "region"
+  description = "Region"
 }
 
 
 variable "cluster" {
   type = string
-  description = "cluster name"
+  description = "Cluster name"
 }
 
 variable "gke_version" {
@@ -31,25 +26,25 @@ variable "release_channel" {
 
 variable "secondary_pod_range" {
   type = string
-  description = "CIDR block for Pod IPs"
+  description = "CIDR block for pod IPs"
 }
 
 variable "secondary_service_range" {
   type = string
-  description = "CIDR block for Pod IPs"
+  description = "CIDR block for service IPs"
 }
 
 variable "network_name" {
   type = string
-  description = "the network name of the gke cluster"
+  description = "The network name of the GKE cluster"
 }
 
 variable "gke_num_nodes" {
   type = string
-  description = "the number of nodes in each az"
+  description = "The number of nodes in each availability zone"
 }
 variable "windows_node_pool" {
-  type = bool
+  type        = bool
   default     = false
   description = "Flag to provision windows node pool"
 }

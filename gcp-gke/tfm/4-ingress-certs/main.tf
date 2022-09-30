@@ -22,7 +22,7 @@ data "kubernetes_service" "ingress-nginx_controller" {
 
 # DNS zone managed by Google Cloud DNS.
 data "google_dns_managed_zone" "default" {
-  name = "base-dns-global-${var.environment}"
+  name = "base-dns-global-${var.network_name}"
   project     = var.project_id
 }
 

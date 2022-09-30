@@ -6,10 +6,10 @@ module "jumphost_instance" {
     zone            = "us-west1-a" 
     image           = "ubuntu-os-cloud/ubuntu-1804-lts"    
     network         = "network01"
-    subnetwork      = "enviroment01-us-east1-vm-subnet"
+    subnetwork      = "network01-us-east1-vm-subnet"
     provision_ssh_firewall = false
     provision_iap_firewall = false
-    
+    members         = ["user:jane@email.com", "user:john@email.com"] 
     
 }
 

@@ -2,22 +2,26 @@ This example file can be used as follows. Additional details and list of require
 
 ```hcl
 module "third-party" {
-    source  = "../../../tfm/5-third-party/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/5-third-party?ref=master
+    source  = "../../../tfm/5-third-party/" #"github.com/genesys/multicloud-platform.git//gcp-gke/tfm/5-third-party?ref=master"
+    consul_helm_version = "0.41.0"
+    consul_image        = "hashicorp/consul:1.11.3"
+    consul_imageK8S     = "hashicorp/consul-k8s-control-plane:0.41.0"
+    consul_datacenter   = "uswest1"
 }
 
 #Kubernetes
 data "google_client_config" "provider" {}
-data "google_container_cluster" "gke1" {
+data "google_container_cluster" "<cluster name>" {
   name     = <cluster name>
   location = <cluster location>
-  project  = <project name>
+  project  = <project ID>
 }
 
 provider "kubernetes" {
-  host  = "https://${data.google_container_cluster.gke1.endpoint}"
+  host  = "https://${data.google_container_cluster.<cluster name>.endpoint}"
   token = data.google_client_config.provider.access_token
   cluster_ca_certificate = base64decode(
-    data.google_container_cluster.gke1.master_auth[0].cluster_ca_certificate,
+    data.google_container_cluster.<cluster name>.master_auth[0].cluster_ca_certificate,
     #google_container_cluster.primary.master_auth.0.cluster_ca_certificate
   )
 }
@@ -30,10 +34,10 @@ variable "helm_version" {
 provider "helm" {
 
   kubernetes {
-    host  = "https://${data.google_container_cluster.gke1.endpoint}"
+    host  = "https://${data.google_container_cluster.<cluster name>.endpoint}"
     token = data.google_client_config.provider.access_token
     cluster_ca_certificate = base64decode(
-      data.google_container_cluster.gke1.master_auth[0].cluster_ca_certificate,
+      data.google_container_cluster.<cluster name>.master_auth[0].cluster_ca_certificate,
       #google_container_cluster.primary.master_auth.0.cluster_ca_certificate
     )
     config_path = "~/.kube/config"
@@ -41,7 +45,7 @@ provider "helm" {
 }
 
 provider "google" {
-  project = <project name>
+  project = "<project ID>"
 }
 
 terraform {
@@ -57,8 +61,8 @@ terraform {
 
 terraform {
     backend "gcs" {
-        bucket = <Bucket Name> #Replace with the name of the bucket created in Module 0
-        prefix = "third-party-state" #creates a new folder within bucket
+        bucket = "<your globally unique bucket name>" #Replace with the name of the bucket created in module 0
+        prefix = "third-party-state" #Creates a new folder within bucket
     }
 }
 ```

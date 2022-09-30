@@ -1,9 +1,10 @@
-module "ingress_certs" {
-  source            = "../../../tfm/4-ingress-certs/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/4-ingress-certs?ref=master
-  project_id        = "project01"
-  network_name      = "network01"
-  domain_name_nginx = "lb01-useast1.domain.example.com" #domain.example.com should be same as FQDN in module 1-network
-  email             = "jane.doe@email.com"
+module "sbc-setup" {
+  source               = "../../../../../tfm/7-sbc/sbc-setup/" #"github.com/genesys/multicloud-platform.git//gcp-gke/tfm/7-sbc/sbc-setup?ref=master"
+  network_name         = "network01"
+  subnetwork           = "network01-us-east1-subnet"
+  region               = "us-east1"
+  ip_name              = "sip-address-useast1"
+  provision_firewall_ingress   = true
 }
 
 #Kubernetes
@@ -57,9 +58,10 @@ terraform {
   required_version = "= 1.0.11"
 }
 
+
 terraform {
   backend "gcs" {
-    bucket = "tf-statefiles" #Replace with the name of the bucket created in module 0-remotestate
-    prefix = "ingress-certs-cluster01-useast1-state" #creates a new folder
+    bucket = "tf-statefiles" #Replace with the name of the bucket created in Module 0
+    prefix = "sbc-setup-useast1-state" #creates a new folder within the bucket
   }
 }

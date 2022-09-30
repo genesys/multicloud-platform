@@ -4,30 +4,32 @@ This module handles the inital setup for terraform backend and enabling GKE API'
 
 ## Usage
 
+*Note: Make sure to [authenticate gcloud](https://github.com/genesys/multicloud-platform/tree/master/gcp-gke#authenticate-gcloud) before execution.
+
 This module needs to be executed twice. First time for creating the initial bucket. Second time for moving the state file to the newly created bucket.
 Basic usage of this module is as follows:
 
 1. Execute with the terraform block commented out to create a bucket.
-2. Uncomment the terraform block and move the statefile to the bucket using terraform prompts.
+2. Uncomment the terraform block and move the statefile to the bucket by executing code again and following terraform prompts. 
 
 ```hcl
 module "remote_state" {
-  source      = "github.com/genesys/multicloud-platform.git//gcp-gke/tfm/0-remotestate?ref=master"
-  name        = "<your_globally_unique_bucket_name>" (Bucket naming guidlines: https://cloud.google.com/storage/docs/naming-buckets)
-  location    = "<Bucket Location>" (Regions list: https://cloud.google.com/storage/docs/locations#location-r)
+  source      = "../../../tfm/0-remotestate/" #"github.com/genesys/multicloud-platform.git//gcp-gke/tfm/0-remotestate?ref=master"
+  name        = "<your globally unique bucket name>" #(Bucket naming guidlines: https://cloud.google.com/storage/docs/naming-buckets)
+  location    = "<bucket location>" #(Regions list: https://cloud.google.com/storage/docs/locations#location-r)
 }
 
 #Comment out the below block
 terraform {
   backend "gcs" {
-    bucket = "<your_globally_unique_bucket_name>" #Replace with the name of the bucket created above
-    prefix = "remotestate-state" #creates a new folder within bucket
+    bucket = "<your globally unique bucket name>" #Replace with the name of the bucket created above
+    prefix = "remotestate-state" #Creates a new folder within bucket
   }
 }
 #Commenting ends
 
 provider "google" {
-  project = "<PROJECT ID>"
+  project = "<project ID>"
 }
 
 terraform {

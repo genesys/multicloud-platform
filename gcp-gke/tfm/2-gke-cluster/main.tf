@@ -1,7 +1,3 @@
-data "google_compute_network" "vpc1" {
-  name     = var.environment
-  project  = var.project_id
-}
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
@@ -9,13 +5,13 @@ resource "google_container_cluster" "primary" {
   project                     = var.project_id 
   name                        = var.cluster
   location                    = var.region 
-  network                     = data.google_compute_network.vpc1.name
-  subnetwork                  = "${var.environment}-${var.region}-subnet"
+  network                     = var.network_name
+  subnetwork                  = "${var.network_name}-${var.region}-subnet"
   remove_default_node_pool    = true
   initial_node_count          = 1
   default_max_pods_per_node   = 110
   enable_shielded_nodes       = true
-  min_master_version          = var.gke_version #"1.21.3-gke.2003"
+  min_master_version          = var.gke_version
 
   ip_allocation_policy {
     cluster_ipv4_cidr_block   = var.secondary_pod_range
@@ -23,11 +19,7 @@ resource "google_container_cluster" "primary" {
   }
   networking_mode             = "VPC_NATIVE"
 
-  #cluster_autoscaling {
-    #enabled             = true
-    #autoscaling_profile = "OPTIMIZE_UTILIZATION"
-  #}
-
+  
   release_channel {
     channel                   =  var.release_channel
   }
@@ -52,6 +44,11 @@ resource "google_container_node_pool" "primary_nodes" {
   cluster    = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
   project    = var.project_id
+
+  management {
+    auto_repair = "true"
+    auto_upgrade = "false"
+  }
 
   node_config {
     oauth_scopes = [
@@ -88,6 +85,11 @@ resource "google_container_node_pool" "linux_pool_for_windows" {
   node_config {
     image_type = "COS_CONTAINERD"
   }
+
+  management {
+    auto_repair = "true"
+    auto_upgrade = "false"
+  }
 }
 
 # Node pool of Windows Server machines.
@@ -102,6 +104,11 @@ resource "google_container_node_pool" "windows_pool" {
   node_config {
     image_type   = "WINDOWS_LTSC_CONTAINERD"
     machine_type = "n1-standard-2"
+  }
+
+  management {
+    auto_repair = "true"
+    auto_upgrade = "false"
   }
 
   # The Linux node pool must be created before the Windows Server node pool.

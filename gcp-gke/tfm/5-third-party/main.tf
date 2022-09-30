@@ -34,7 +34,7 @@ resource "helm_release" "keda" {
   repository   = "https://kedacore.github.io/charts"
   chart       = "keda"
   namespace   = "keda"
-  version     = "2.0.1"
+  version     = "2.6.2"
 }
 
 
@@ -61,10 +61,11 @@ resource "helm_release" "consul" {
   max_history   = 10
   wait          = true
   recreate_pods = true
-  version  = "v0.37.0"
+  version       =  var.consul_helm_version
   values        = [
     data.local_file.helmvalues-consul.content
   ]
+
 
   set {
     name  = "global.tls.enabled"
@@ -73,7 +74,7 @@ resource "helm_release" "consul" {
 
   set {
     name  = "global.acls.manageSystemACLs"
-    value = true
+    value = var.manageSystemACLs
   }
 
   set {
@@ -90,21 +91,43 @@ resource "helm_release" "consul" {
     value = var.controller
   }
   set {
-    name  = "openshift.enabled"
-    value = var.controller
+    name  = "global.openshift.enabled"
+    value = var.openshift
   }
   set {
     name  = "syncCatalog.enabled"
-    value = var.controller
+    value = var.syncCatalog
   }
   set {
     name  = "ui.enabled"
-    value = var.controller
+    value = var.ui
   }
   set {
     name  = "client.enabled"
-    value = var.controller
+    value = var.client
   }
+
+  set {
+    name  = "global.image"
+    value = var.consul_image
+  }
+
+  set {
+    name  = "global.imageK8S"
+    value = var.consul_imageK8S
+  }
+
+
+  set {
+    name  = "global.datacenter"
+    value = var.consul_datacenter
+  }
+
+  set {
+    name = "global.domain"
+    value = "${var.consul_datacenter}.consul"
+  }
+
   depends_on = [
     kubernetes_namespace.consul,
   ]

@@ -2,15 +2,15 @@
 #variable chartValues    { default = "" }
 
 variable tls {
-  default = false
+  default = true
 }
 
 variable connectInject {
-  default = false
+  default = true
 }
 
 variable controller {
-  default = false
+  default = true
 }
 
 variable openshift {
@@ -18,13 +18,36 @@ variable openshift {
 }
 
 variable syncCatalog {
-  default = false
+  default = true
 }
 
 variable ui {
-  default = false
+  default = true
 }
 
 variable client {
-  default = false
+  default = true
+}
+
+variable manageSystemACLs {
+  default = true
+}
+
+variable consul_helm_version {
+  type = string
+  default = "v0.34.1"
+}
+
+variable consul_image {
+  type = string
+  default = "hashicorp/consul:1.9.15"
+}
+
+variable consul_imageK8S {
+  type = string
+  default = "hashicorp/consul-k8s-control-plane:0.34.1"
+}
+
+variable consul_datacenter {
+  type = string
 }

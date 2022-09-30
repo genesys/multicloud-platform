@@ -1,3 +1,4 @@
+# https://cloud.google.com/storage/docs/naming-buckets)
 variable "name" {
   type = string
   description = "Name of the bucket"
@@ -6,7 +7,7 @@ variable "name" {
 # https://cloud.google.com/storage/docs/locations#location-r
 variable "location" {
   type = string
-  description = "location of the bucket"
+  description = "Location of the bucket"
   #default     = "US"
 }
 
