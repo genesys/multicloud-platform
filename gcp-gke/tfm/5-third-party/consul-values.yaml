@@ -1,39 +1,114 @@
 global:
+  logLevel: info
   name: consul
-  datacenter: dc1
-  image: hashicorp/consul:1.9.15
-  imageK8S: hashicorp/consul-k8s-control-plane:0.34.1
+  domain: useast1.consul #variable
+  datacenter: useast1
+  image: hashicorp/consul:1.11.3
+  imageK8S: hashicorp/consul-k8s-control-plane:0.41.0
   tls:
     enabled: true
     enableAutoEncrypt: true
     httpsOnly: false
   acls:
     manageSystemACLs: true
+  gossipEncryption:
+    autoGenerate: true
   openshift:
-    enabled: true
-
+    enabled: false
 server:
   replicas: 3
   bootstrapExpect: 3
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 1
+    limits:
+      memory: 1Gi
+      cpu: 2
   disruptionBudget:
     enabled: true
     maxUnavailable: 0
-
+  securityContext:
+    runAsNonRoot: false
+    runAsGroup: 0
+    runAsUser: 0
+    fsGroup: 0
 client:
   enabled: true
   grpc: true
-
+  image: 
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "800m"
+    limits:
+      memory: "2560Mi"
+      cpu: "800m"
+  extraConfig: |
+    {
+      "telemetry": {
+        "disable_hostname": true
+      }
+    }
+dns:
+  enabled: true
+  enableRedirection: true
 ui:
-  enabled: true 
-
+  enabled: true
 connectInject:
+  sidecarProxy:
+    resources:
+      requests:
+        memory: "150Mi"
+        cpu: "400m"
+      limits:
+        memory: "600Mi"
+        cpu: "800m"
   enabled: true
   transparentProxy:
     defaultEnabled: false
-
+    defaultOverwriteProbes: false
+  metrics:
+    defaultEnabled: false  
+  topologySpreadConstraints: |
+    - maxSkew: 1
+      topologyKey: failure-domain.beta.kubernetes.io
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          labelname: labelvalue
+  tolerations: |
+    - key: CriticalAddonsOnly
+      operator: Exists
+      effect: NoSchedule
+  resources:
+    requests:
+      memory: "400Mi"
+      cpu: "400m"
+    limits:
+      memory: "2000Mi"
+      cpu: "400m"
 controller:
   enabled: true
-  
+  replicas: 2
+  topologySpreadConstraints: |
+    - maxSkew: 1
+      topologyKey: failure-domain.beta.kubernetes.io
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          labelname: labelvalue
+  tolerations: |
+    - key: CriticalAddonsOnly
+      operator: Exists
+      effect: NoSchedule
 syncCatalog:
   enabled: true
   addK8SNamespaceSuffix: false
+  resources:
+    requests:
+      memory: "200Mi"
+      cpu: "400m"
+    limits:
+      memory: "800Mi"
+      cpu: "800m"

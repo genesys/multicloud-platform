@@ -1,7 +1,3 @@
-data "google_compute_network" "vpc1" {
-  name     = var.environment
-  project  = var.project_id
-}
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
@@ -9,8 +5,8 @@ resource "google_container_cluster" "primary" {
   project                     = var.project_id 
   name                        = var.cluster
   location                    = var.region 
-  network                     = data.google_compute_network.vpc1.name
-  subnetwork                  = "${var.environment}-${var.region}-subnet"
+  network                     = var.network_name
+  subnetwork                  = "${var.network_name}-${var.region}-subnet"
   remove_default_node_pool    = true
   initial_node_count          = 1
   default_max_pods_per_node   = 110
@@ -22,7 +18,7 @@ resource "google_container_cluster" "primary" {
     services_ipv4_cidr_block  = var.secondary_service_range
   }
   networking_mode             = "VPC_NATIVE"
-
+  
   release_channel {
     channel                   =  var.release_channel
   }

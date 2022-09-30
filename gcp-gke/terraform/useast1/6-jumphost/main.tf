@@ -6,7 +6,7 @@ module "jumphost_instance" {
     zone            = "us-east1-c" 
     image           = "ubuntu-os-cloud/ubuntu-1804-lts"    
     network         = "network01"
-    subnetwork      = "enviroment01-us-west1-vm-subnet"
+    subnetwork      = "network01-us-west1-vm-subnet"
     provision_ssh_firewall = true
     provision_iap_firewall = true
     create_iap_iam_role    = true

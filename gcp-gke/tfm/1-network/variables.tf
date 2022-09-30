@@ -9,14 +9,9 @@ variable "description" {
   default     = ""
 }
 
-variable "environment" {
-  type = string
-  description = "The environment of the project where this VPC will be created" #for reducing a zero in project ID
-}
-
 variable "network_name" {
   type = string
-  description = "VPC Name"
+  description = "VPC network name"
 }
 
 variable "provision_vpc" {

@@ -13,9 +13,9 @@ resource "google_compute_network" "vpc" {
 # DNS zone creation
 resource "google_dns_managed_zone" "dns-zone" {
   project     = var.project_id
-  name        = "base-dns-global-${var.environment}"
+  name        = "base-dns-global-${var.network_name}"
   dns_name    = var.fqdn
-  description = "base-dns-global-${var.environment}"
+  description = "base-dns-global-${var.network_name}"
   visibility  = "public"
 
   dnssec_config {
@@ -31,7 +31,7 @@ resource "google_dns_managed_zone" "dns-zone" {
 
 resource "google_compute_router" "router" {
   for_each    = toset(var.region)
-  name        = "natrouter-${each.value}-${var.environment}"
+  name        = "natrouter-${each.value}-${var.network_name}"
   network     = var.network_name
   region      = each.value
   project     = var.project_id
@@ -44,9 +44,9 @@ resource "google_compute_router" "router" {
 
 resource "google_compute_router_nat" "nats" {
   for_each                           = toset(var.region)
-  name                               = "natgw-${each.value}-${var.environment}"
+  name                               = "natgw-${each.value}-${var.network_name}"
   project                            = var.project_id
-  router                             = "natrouter-${each.value}-${var.environment}"
+  router                             = "natrouter-${each.value}-${var.network_name}"
   region                             = each.value
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"

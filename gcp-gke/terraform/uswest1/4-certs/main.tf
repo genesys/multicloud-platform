@@ -1,8 +1,8 @@
 module "ingress_certs" {
   source            = "../../../tfm/4-ingress-certs/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/4-ingress-certs?ref=master
   project_id        = "project01"
-  environment       = "environment01"
-  domain_name_nginx = "nlb02-uswest1.domain.example.com" #domain.example.com should be same as FQDN in module 1-network
+  network_name      = "network01"
+  domain_name_nginx = "lb02-uswest1.domain.example.com" #domain.example.com should be same as FQDN in module 1-network
   email             = "jane.doe@email.com"
 }
 

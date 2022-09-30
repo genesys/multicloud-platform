@@ -117,6 +117,17 @@ resource "helm_release" "consul" {
     value = var.consul_imageK8S
   }
 
+
+  set {
+    name  = "global.datacenter"
+    value = var.consul_datacenter
+  }
+
+  set {
+    name = "global.domain"
+    value = "${var.consul_datacenter}.consul"
+  }
+
   depends_on = [
     kubernetes_namespace.consul,
   ]

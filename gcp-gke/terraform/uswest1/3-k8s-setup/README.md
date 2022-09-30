@@ -2,28 +2,28 @@ This example file can be used as follows. Additional details and list of require
 
 ```hcl
 module "network" {
-    source        = "../../../tfm/3-k8s-setup/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/3-k8s-setup?ref=master"
-    project_id    = "<PROJECT ID eg.gcpe0002>"
-    network_name  = "<Same as environment>"
-    ipv4          = "<Reserved ipv4 CIDR for storage class>" #1024 IP addresses
+    source        = "../../../tfm/3-k8s-setup/" #"github.com/genesys/multicloud-platform.git//gcp-gke/tfm/3-k8s-setup?ref=master"
+    project_id    = "<project ID>" #eg. project01
+    network_name  = "<name of your VPC network>" #eg. network01
+    ipv4          = "<reserved IPv4 CIDR for storage class>" #1024 IP addresses
 }
 
 
 provider "google" {
-  project = <PROJECT ID>
+  project = "<project ID>"
 }
 
-data "google_container_cluster" "gke1" {
+data "google_container_cluster" "<cluster name>" {
   name = "<cluster name>"
   location = "<cluster region>"
-  project = "<project id>"
+  project = "<project ID>"
 }
 
 provider "kubernetes" {
-  host = "https://${data.google_container_cluster.gke1.endpoint}"
+  host = "https://${data.google_container_cluster.<cluster name>.endpoint}"
   token = data.google_client_config.provider.access_token
   cluster_ca_certificate = base64decode(
-    data.google_container_cluster.gke1.master_auth[0].cluster_ca_certificate,
+    data.google_container_cluster.<cluster name>.master_auth[0].cluster_ca_certificate,
   ) 
 }
 
@@ -37,10 +37,10 @@ default = "v2.9.1"
 
 provider "helm" {
   kubernetes {
-    host = "https://${data.google_container_cluster.gke1.endpoint}"
+    host = "https://${data.google_container_cluster.<cluster name>.endpoint}"
     token = data.google_client_config.provider.access_token
     cluster_ca_certificate = base64decode(
-    data.google_container_cluster.gke1.master_auth[0].cluster_ca_certificate,
+    data.google_container_cluster.<cluster name>.master_auth[0].cluster_ca_certificate,
     )
     config_path = "~/.kube/config"
   } 
@@ -59,8 +59,8 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = <Bucket Name> #Replace with the name of the bucket created in Module 0
-    prefix = "gke1-k8s-state" #creates a new folder within the bucket
+    bucket = "<your globally unique bucket name>" #Replace with the name of the bucket created in module 0
+    prefix = "gke1-k8s-state" #Creates a new folder within the bucket
   }
 }
 ```

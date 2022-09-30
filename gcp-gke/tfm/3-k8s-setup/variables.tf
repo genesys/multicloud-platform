@@ -5,14 +5,12 @@ variable "project_id" {
 
 variable "network_name" {
   type = string
-  description = "VPC Name"
+  description = "VPC network name"
 }
 
 
 variable "ipv4" {
   type        = string
-  description = "Resrved CIDR block for storage class"
+  description = "Reserved CIDR block for storage class"
 }
-
-#"10.198.12.0/22"
 

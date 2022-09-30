@@ -5,6 +5,7 @@ module "third-party" {
     consul_helm_version = "0.41.0"
     consul_image        = "hashicorp/consul:1.11.3"
     consul_imageK8S     = "hashicorp/consul-k8s-control-plane:0.41.0"
+    consul_datacenter   = "uswest1"
 }
 
 

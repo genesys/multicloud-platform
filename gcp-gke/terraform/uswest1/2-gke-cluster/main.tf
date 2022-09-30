@@ -1,12 +1,11 @@
 module "gke" {
     source                  = "../../../tfm/2-gke-cluster/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/2-gke-cluster?ref=master
     project_id              = "project01"
-    environment             = "environment01"
     network_name            = "network01"
     region                  = "us-west1"
     cluster                 = "cluster02"
     gke_version             = "1.22.10-gke.600"  #Minumum version supported: 1.21.*
-    release_channel         = "UNSPECIFIED"
+    release_channel         = "UNSPECIFIED" 
     secondary_pod_range     = "10.198.64.0/18"
     secondary_service_range = "10.198.16.0/20"
     gke_num_nodes           = "2"

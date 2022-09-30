@@ -1,20 +1,20 @@
 variable "project" {
     type = string
-    description = "project name"
+    description = "Project name"
 }
 variable "description" {
     default = ""
     type = string
-    description = "Optional description for Jumphost"
+    description = "Optional description for jumphost"
 }
 variable "machine_type" {
   type = string
-  description = "Type of machine to be used for Jumphost"
+  description = "Type of machine to be used for jumphost"
 }
 
 variable "name" {
   type = string
-  description = "This is bastion host name"
+  description = "Bastion host name"
   
 }
 
@@ -31,31 +31,31 @@ variable "image" {
 
 variable "network" {
   type = string
-  description = "select network vm to be launched"
+  description = "Network where VM will be launched"
 
 }
 
 variable "subnetwork" {
   type = string
-  description = "part of network"
+  description = "Part of network"
 }
 
 
 variable "provision_ssh_firewall" {
   type = bool
-  description = "Flag for creating a firewall rule"
+  description = "flag for creating a firewall rule"
   default     = true
 }
 
 variable "provision_iap_firewall" {
   type = bool
-  description = "Flag for creating a firewall rule"
+  description = "flag for creating a firewall rule"
   default     = true
 }
 
 variable "create_iap_iam_role" {
   type = bool
-  description = "Flag for creating a firewall rule"
+  description = "Flag for creating an IAP IAM role"
   default     = true
 }
 
