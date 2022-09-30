@@ -51,3 +51,4 @@ variable consul_imageK8S {
 variable consul_datacenter {
   type = string
 }
+

@@ -18,7 +18,6 @@ resource "google_container_cluster" "primary" {
     services_ipv4_cidr_block  = var.secondary_service_range
   }
   networking_mode             = "VPC_NATIVE"
-
   
   release_channel {
     channel                   =  var.release_channel

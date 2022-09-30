@@ -108,17 +108,12 @@ Below inputs are required in the data and provider blocks and not in the module 
 | v1.21 | v1.9.15 |
 | >= v1.22 | v1.11.3 |
 
+
 | Consul Variables | v1.9.15 Values | v1.11.3 Values |
 |------------------|----------------|----------------|
 | consul_helm_version | "v0.34.1" | "0.41.0" |
 | consul_image | "hashicorp/consul:1.9.15" | "hashicorp/consul:1.11.3" |
 | consul_imageK8s | "hashicorp/consul-k8s-control-plane:0.34.1" | "hashicorp/consul-k8s-control-plane:0.41.0" |
 | tls | true | true |
-
-
-
-
-
-
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

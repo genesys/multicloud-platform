@@ -18,7 +18,6 @@ global:
 server:
   replicas: 3
   bootstrapExpect: 3
-
   resources:
     requests:
       memory: 100Mi

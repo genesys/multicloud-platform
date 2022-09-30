@@ -18,7 +18,7 @@ module "gke" {
     network_name            = "<network>" #eg. network01
     region                  = "<cluster region>" #eg. us-west1
     cluster                 = "<cluster name>" #eg. cluster01
-    gke_version             = "<version of the cluster>" #minumum version supported: 1.23
+    gke_version             = "<version of the cluster>" #minumum version supported: 1.22
     release_channel         = "<release channel>" #eg. RAPID/REGULAR/STABLE/UNSPECIFIED (must be all caps)
     secondary_pod_range     = "<CIDR block for pods>" #eg. 10.198.64.0/18
     secondary_service_range = "<CIDR block for services>" #eg. 10.198.16.0/20
